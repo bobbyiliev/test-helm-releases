@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  test-chart:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-01-14T11:05:48.163311707Z"
+    description: A minimal test chart
+    digest: 35f7619fe7daba3e34ffc3b29402f4bdee9a7408b9085eddddfdfc7d6bc2ea8d
+    name: test-chart
+    type: application
+    urls:
+    - test-chart-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-01-14T11:05:48.163317288Z"
