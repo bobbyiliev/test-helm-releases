@@ -1,1 +1,1 @@
-# test-helm-releases
+# Simple Test for Helm Charts releases
