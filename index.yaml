@@ -3,7 +3,17 @@ entries:
   test-chart:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-14T11:20:08.820941664Z"
+    created: "2025-01-14T11:23:03.915621749Z"
+    description: A minimal test chart PoC
+    digest: d383a47cd6e1268ea987e00504f6bcfc7f1bbd477a4e359ae76b16bd3864d547
+    name: test-chart
+    type: application
+    urls:
+    - https://bobbyiliev.github.io/test-helm-releases/test-chart-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-01-14T11:23:03.91548378Z"
     description: A minimal test chart PoC
     digest: 0235ef8ac09af342a663ba20265dbee9d77ffe54c5623facf92cc7750e90f693
     name: test-chart
@@ -13,7 +23,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-14T11:20:08.820828742Z"
+    created: "2025-01-14T11:23:03.915369525Z"
     description: A minimal test chart
     digest: 35f7619fe7daba3e34ffc3b29402f4bdee9a7408b9085eddddfdfc7d6bc2ea8d
     name: test-chart
@@ -21,4 +31,4 @@ entries:
     urls:
     - https://bobbyiliev.github.io/test-helm-releases/test-chart-0.1.0.tgz
     version: 0.1.0
-generated: "2025-01-14T11:20:08.820573633Z"
+generated: "2025-01-14T11:23:03.915110188Z"
