@@ -3,7 +3,7 @@ entries:
   test-chart:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-15T17:39:16.131323419Z"
+    created: "2025-01-15T17:41:53.664135557Z"
     description: A minimal test chart for Helm
     digest: 0c7f27f9d3edcefdc4cc1819e7de16a92d4b0075af5f37a32c08ba4d6e266983
     name: test-chart
@@ -13,7 +13,7 @@ entries:
     version: 0.1.8
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-15T17:39:16.130849855Z"
+    created: "2025-01-15T17:41:53.664032345Z"
     description: A minimal test chart for Helm
     digest: 9b4d5c85c6786b1572e8f46a12c50aa866537c5e603cf1caa08a64da9aeccbc2
     name: test-chart
@@ -23,7 +23,7 @@ entries:
     version: 0.1.7
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-15T17:39:16.130744969Z"
+    created: "2025-01-15T17:41:53.663926388Z"
     description: A minimal test chart for Helm
     digest: b02ea24dc23e94ad7a8358cff7cde1ab605d063053afdae9ef8604b5b07e4913
     name: test-chart
@@ -33,7 +33,7 @@ entries:
     version: 0.1.6
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-15T17:39:16.13063287Z"
+    created: "2025-01-15T17:41:53.663812095Z"
     description: A minimal test chart for Helm chart publishing
     digest: b88f2d72ff1f579c6b92a592d05b52441f7dc2a23091c364c2426495e4dc6140
     name: test-chart
@@ -43,7 +43,7 @@ entries:
     version: 0.1.5
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-15T17:39:16.131728255Z"
+    created: "2025-01-15T17:41:53.664667357Z"
     description: A minimal test chart
     digest: 6466cf678294b86d77cf5acd2d14c1169265a91011438e9af68e8c8323d04285
     name: test-chart
@@ -53,7 +53,7 @@ entries:
     version: 0.1.4
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-15T17:39:16.130512936Z"
+    created: "2025-01-15T17:41:53.663695308Z"
     description: A minimal test chart
     digest: 6466cf678294b86d77cf5acd2d14c1169265a91011438e9af68e8c8323d04285
     name: test-chart
@@ -63,7 +63,7 @@ entries:
     version: 0.1.4
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-15T17:39:16.130401297Z"
+    created: "2025-01-15T17:41:53.663561799Z"
     description: A minimal test chart PoC
     digest: d383a47cd6e1268ea987e00504f6bcfc7f1bbd477a4e359ae76b16bd3864d547
     name: test-chart
@@ -73,7 +73,7 @@ entries:
     version: 0.1.3
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-15T17:39:16.130269041Z"
+    created: "2025-01-15T17:41:53.663432629Z"
     description: A minimal test chart PoC
     digest: 0235ef8ac09af342a663ba20265dbee9d77ffe54c5623facf92cc7750e90f693
     name: test-chart
@@ -83,7 +83,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-15T17:39:16.130137465Z"
+    created: "2025-01-15T17:41:53.663291666Z"
     description: A minimal test chart
     digest: 35f7619fe7daba3e34ffc3b29402f4bdee9a7408b9085eddddfdfc7d6bc2ea8d
     name: test-chart
@@ -94,7 +94,17 @@ entries:
   test-chart-2:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-15T17:39:16.131526288Z"
+    created: "2025-01-15T17:41:53.664359915Z"
+    description: A minimal test chart for Helm 2
+    digest: 15464fda8610690e68deb30f0c28757c4c52af777c133acb14f8701dceb3fa67
+    name: test-chart-2
+    type: application
+    urls:
+    - https://bobbyiliev.github.io/test-helm-releases/test-chart-2-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-01-15T17:41:53.664229111Z"
     description: A minimal test chart for Helm 2
     digest: 287e7fa6d5da4a25e8b053ca3c6c412cf1b488b75a060d9bb399122eaf73cbc6
     name: test-chart-2
@@ -102,4 +112,4 @@ entries:
     urls:
     - https://bobbyiliev.github.io/test-helm-releases/test-chart-2-0.1.0.tgz
     version: 0.1.0
-generated: "2025-01-15T17:39:16.129824511Z"
+generated: "2025-01-15T17:41:53.66303579Z"
