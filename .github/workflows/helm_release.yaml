@@ -9,7 +9,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write  # Added for PR creation
 
 env:
   CHART_DIR: charts/test-chart
@@ -20,7 +19,7 @@ jobs:
   publish:
     name: Package and Publish
     runs-on: ubuntu-latest
-  
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -61,13 +60,17 @@ jobs:
             echo "Chart version ${{ steps.chart-version.outputs.version }} is new"
           fi
 
-      - name: Package chart
+      - name: Package and publish chart
         if: steps.version-check.outputs.exists == 'false'
         run: |
+          # Package the chart
           mkdir -p ${RELEASE_DIR}
           helm package ${CHART_DIR} --destination ${RELEASE_DIR}
+
+          # Copy new chart to gh-pages
           cp ${RELEASE_DIR}/*.tgz gh-pages/
 
+          # Update the repository index
           cd gh-pages
           REPO_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
           if [ -f index.yaml ]; then
@@ -76,24 +79,17 @@ jobs:
             helm repo index . --url "${REPO_URL}"
           fi
 
-      - name: Create Pull Request
-        if: steps.version-check.outputs.exists == 'false'
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: helm-release-${{ steps.chart-version.outputs.version }}
-          delete-branch: true
-          base: ${{ env.GITHUB_PAGES_BRANCH }}
-          title: "helm-chart: publish helm chart ${{ steps.chart-version.outputs.version }}"
-          commit-message: "helm-chart: publish helm chart version ${{ steps.chart-version.outputs.version }}"
-          body: |
-            Automated PR to publish new Helm chart version ${{ steps.chart-version.outputs.version }}
+          # Configure git
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
 
-            Changes:
-            - Added new chart package
-            - Updated Helm repository index
+          # Commit and push changes
+          git add .
+          git commit -m "helm-chart: publish helm chart version ${{ steps.chart-version.outputs.version }}"
+          git push origin ${{ env.GITHUB_PAGES_BRANCH }}
 
-            This PR was automatically created by the Helm chart publishing workflow.
-          labels: |
-            helm-release
-            automated-pr
+      - name: Handle failure
+        if: failure()
+        run: |
+          echo "::error::Failed to publish Helm chart"
+          exit 1
