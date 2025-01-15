@@ -26,14 +26,29 @@ jobs:
         with:
           version: latest
 
-      - name: Get list of charts
+      - name: Get list of valid charts
         id: chart-list
+        shell: bash
         run: |
-          CHARTS=$(ls -d ${CHARTS_DIR}/*/ | xargs -n 1 basename)
-          echo "charts=${CHARTS}" >> $GITHUB_OUTPUT
-          echo "Found charts: ${CHARTS}"
+          # Find directories containing Chart.yaml
+          CHARTS=""
+          for dir in ${CHARTS_DIR}/*/; do
+            if [ -f "${dir}Chart.yaml" ]; then
+              chart_name=$(basename "$dir")
+              CHARTS="${CHARTS:+${CHARTS} }${chart_name}"
+            fi
+          done
+
+          if [ -z "$CHARTS" ]; then
+            echo "No valid Helm charts found"
+            exit 0
+          fi
+
+          echo "Found valid charts: $CHARTS"
+          echo "charts=$CHARTS" >> $GITHUB_OUTPUT
 
       - name: Checkout gh-pages branch
+        if: steps.chart-list.outputs.charts != ''
         uses: actions/checkout@v4
         with:
           ref: ${{ env.GITHUB_PAGES_BRANCH }}
@@ -41,8 +56,11 @@ jobs:
           clean: true
 
       - name: Process charts
+        if: steps.chart-list.outputs.charts != ''
+        shell: bash
         run: |
           mkdir -p ${RELEASE_DIR}
+          CHANGES_MADE=0
 
           for CHART in ${{ steps.chart-list.outputs.charts }}; do
             CHART_PATH="${CHARTS_DIR}/${CHART}"
@@ -57,25 +75,30 @@ jobs:
 
             # Lint chart
             helm lint "${CHART_PATH}"
+            if [ $? -ne 0 ]; then
+              echo "Linting failed for ${CHART}"
+              exit 1
+            fi
 
             # Package chart
             helm package "${CHART_PATH}" --destination ${RELEASE_DIR}
+            CHANGES_MADE=1
           done
 
-          # Copy new charts to gh-pages
-          cp ${RELEASE_DIR}/*.tgz gh-pages/ || true
+          # Only proceed if we have new packages
+          if [ $CHANGES_MADE -eq 1 ]; then
+            # Copy new charts to gh-pages
+            cp ${RELEASE_DIR}/*.tgz gh-pages/
 
-          # Update the repository index
-          cd gh-pages
-          REPO_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
-          if [ -f index.yaml ]; then
-            helm repo index . --url "${REPO_URL}" --merge index.yaml
-          else
-            helm repo index . --url "${REPO_URL}"
-          fi
+            # Update the repository index
+            cd gh-pages
+            REPO_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+            if [ -f index.yaml ]; then
+              helm repo index . --url "${REPO_URL}" --merge index.yaml
+            else
+              helm repo index . --url "${REPO_URL}"
+            fi
 
-          # Check if there are changes to commit
-          if [ -n "$(git status --porcelain)" ]; then
             # Configure git
             git config user.name "${{ github.actor }}"
             git config user.email "${{ github.actor }}@users.noreply.github.com"
@@ -85,7 +108,7 @@ jobs:
             git commit -m "helm-charts: publish updated charts"
             git push origin ${{ env.GITHUB_PAGES_BRANCH }}
           else
-            echo "No changes to commit"
+            echo "No new chart versions to publish"
           fi
 
       - name: Handle failure

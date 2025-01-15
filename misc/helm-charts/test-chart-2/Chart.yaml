@@ -1,0 +1,7 @@
+---
+apiVersion: v2
+name: test-chart-2
+description: A minimal test chart for Helm 2
+type: application
+version: 0.1.1
+appVersion: "1.0.0"
