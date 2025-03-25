@@ -11,4 +11,6 @@ git push origin gh-pages
 
 This creates a new branch empty branch `gh-pages` and pushes it to the remote repository which will be used to host the Helm Chart files.
 
-The workflow file `.github/workflows/helm_release.yaml` is triggered when changes are made to the chart files in the `main` branch. The workflow will build the Helm Chart and deploy it to the `gh-pages` branch. If a release with the same version already exists, the workflow will skip the deployment.
+The workflow file `.github/workflows/helm_release.yaml` is triggered when changes are made to the chart files in the `main` branch.
+
+The workflow will build the Helm Chart and deploy it to the `gh-pages` branch. If a release with the same version already exists, the workflow will skip the deployment.
