@@ -14,3 +14,9 @@ This creates a new branch empty branch `gh-pages` and pushes it to the remote re
 The workflow file `.github/workflows/helm_release.yaml` is triggered when changes are made to the chart files in the `main` branch.
 
 The workflow will build the Helm Chart and deploy it to the `gh-pages` branch. If a release with the same version already exists, the workflow will skip the deployment.
+
+# Test for creating a new GitHub release
+
+The `.github/workflows/tag_release.yaml` workflow file is triggered when a new tag is created.
+
+The workflow will create a new release with the information from all PRs merged since the last release.
